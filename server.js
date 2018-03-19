@@ -9,7 +9,7 @@ var cheerio = require("cheerio");
 var app = express();
 
 // Database configuration
-var databaseUrl = "nytscraperDB";
+var databaseUrl = "nprDB";
 var collections = ["scrapedNews"];
 
 // Hook mongojs configuration to the db variable
@@ -41,7 +41,7 @@ app.get("/all", function(req, res) {
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function(req, res) {
   // Make a request for the news section of NYTimes
-  request("https://www.nytimes.com/", function(error, response, html) {
+  request("https://www.npr.org/", function(error, response, html) {
     // Load the html body from request into cheerio
     var $ = cheerio.load(html);
     // For each element with a "title" class
@@ -77,6 +77,6 @@ app.get("/scrape", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
+app.listen(5000, function() {
+  console.log("App running on port 5000!");
 });
