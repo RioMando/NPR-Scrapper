@@ -1,4 +1,4 @@
-//Dependencies
+// Dependencies
 var express = require("express");
 var mongojs = require("mongojs");
 // Require request and cheerio. This makes the scraping possible
@@ -9,7 +9,7 @@ var cheerio = require("cheerio");
 var app = express();
 
 // Database configuration
-var databaseUrl = "nprDB";
+var databaseUrl = "nprdb";
 var collections = ["scrapedNews"];
 
 // Hook mongojs configuration to the db variable
@@ -25,8 +25,8 @@ app.get("/", function(req, res) {
 
 // Retrieve data from the db
 app.get("/all", function(req, res) {
-  // Find all results from the scrapedNews collection in the db
-  db.scrapedNews.find({}, function(error, found) {
+  // Find all results from the scrapedData collection in the db
+  db.scrapedData.find({}, function(error, found) {
     // Throw any errors to the console
     if (error) {
       console.log(error);
@@ -40,8 +40,8 @@ app.get("/all", function(req, res) {
 
 // Scrape data from one site and place it into the mongodb db
 app.get("/scrape", function(req, res) {
-  // Make a request for the news section of NYTimes
-  request("https://www.npr.org/", function(error, response, html) {
+  // Make a request for the news section of NPR
+  request("https://www.npr.org/sections/news/", function(error, response, html) {
     // Load the html body from request into cheerio
     var $ = cheerio.load(html);
     // For each element with a "title" class
@@ -49,11 +49,12 @@ app.get("/scrape", function(req, res) {
       // Save the text and href of each link enclosed in the current element
       var title = $(element).children("a").text();
       var link = $(element).children("a").attr("href");
+      // var extract = $(element).children("a").text()
 
       // If this found element had both a title and a link
       if (title && link) {
-        // Insert the data in the scrapedNews db
-        db.scrapedNews.insert({
+        // Insert the data in the scrapedData db
+        db.scrapedData.insert({
           title: title,
           link: link
         },
@@ -77,6 +78,6 @@ app.get("/scrape", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(5000, function() {
-  console.log("App running on port 5000!");
+app.listen(3000, function() {
+  console.log("App running on port 3000!");
 });
