@@ -25,8 +25,8 @@ app.get("/", function(req, res) {
 
 // Retrieve data from the db
 app.get("/all", function(req, res) {
-  // Find all results from the scrapedData collection in the db
-  db.scrapedData.find({}, function(error, found) {
+  // Find all results from the scrapedNews collection in the db
+  db.scrapedNews.find({}, function(error, found) {
     // Throw any errors to the console
     if (error) {
       console.log(error);
@@ -45,18 +45,27 @@ app.get("/scrape", function(req, res) {
     // Load the html body from request into cheerio
     var $ = cheerio.load(html);
     // For each element with a "title" class
-    $(".title").each(function(i, element) {
+    // $(".title").each(function(i, element) {
+    // $(".item-info").each(function(i, element) {
+    $(".item-info").each(function (i, element) {
       // Save the text and href of each link enclosed in the current element
-      var title = $(element).children("a").text();
-      var link = $(element).children("a").attr("href");
+      // var title = $(element).children("a").text();
+      var title = $(element).children(".title").children("a").text();
+      var link = $(element).children(".title").children("a").attr("href");
+      var teaser = $(element).children(".teaser").children("a").text();
+      var teaserLink = $(element).children(".teaser").children("a").attr("href");
+      // var xtract = $(element).children("teaser a").text();
       // var extract = $(element).children("a").text()
 
       // If this found element had both a title and a link
-      if (title && link) {
-        // Insert the data in the scrapedData db
-        db.scrapedData.insert({
+      if (title && link && teaser && teaserLink) {
+        // Insert the data in the scrapedNews db
+        db.scrapedNews.insert({
           title: title,
-          link: link
+          link: link,
+          teaser: teaser,
+          teaserLink: teaserLink
+          // xtract: xtract
         },
         function(err, inserted) {
           if (err) {
