@@ -44,20 +44,15 @@ app.get("/scrape", function(req, res) {
   request("https://www.npr.org/sections/news/", function(error, response, html) {
     // Load the html body from request into cheerio
     var $ = cheerio.load(html);
-    // For each element with a "title" class
-    // $(".title").each(function(i, element) {
-    // $(".item-info").each(function(i, element) {
+    // For each element with a "item-info" class
     $(".item-info").each(function (i, element) {
       // Save the text and href of each link enclosed in the current element
-      // var title = $(element).children("a").text();
       var title = $(element).children(".title").children("a").text();
       var link = $(element).children(".title").children("a").attr("href");
       var teaser = $(element).children(".teaser").children("a").text();
       var teaserLink = $(element).children(".teaser").children("a").attr("href");
-      // var xtract = $(element).children("teaser a").text();
-      // var extract = $(element).children("a").text()
-
-      // If this found element had both a title and a link
+      
+      // If this found element that has title with a link, and teaser with a link then...
       if (title && link && teaser && teaserLink) {
         // Insert the data in the scrapedNews db
         db.scrapedNews.insert({
@@ -65,7 +60,6 @@ app.get("/scrape", function(req, res) {
           link: link,
           teaser: teaser,
           teaserLink: teaserLink
-          // xtract: xtract
         },
         function(err, inserted) {
           if (err) {
