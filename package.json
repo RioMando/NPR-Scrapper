@@ -1,7 +1,7 @@
 {
-  "name": "nytimes-scrapper",
+  "name": "npr-scrapper",
   "version": "1.0.0",
-  "description": "\"Scrap news from NYTimes web page\"",
+  "description": "\"Scrap news from NPR web page\"",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,9 +13,9 @@
   "author": "RioMando",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/RioMando/NYTimes-Scrapper/issues"
+    "url": "https://github.com/RioMando/NPR-Scrapper/issues"
   },
-  "homepage": "https://github.com/RioMando/NYTimes-Scrapper#readme",
+  "homepage": "https://github.com/RioMando/NPR-Scrapper#readme",
   "dependencies": {
     "body-parser": "^1.18.2",
     "cheerio": "^1.0.0-rc.2",

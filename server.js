@@ -16,7 +16,7 @@ var collections = ["scrapedNews"];
 var db = mongojs(databaseUrl, collections);
 db.on("error", function(error) {
   console.log("Database Error:", error);
-});
+});yarn
 
 // Main route (simple Hello World Message)
 app.get("/", function(req, res) {
@@ -74,6 +74,13 @@ app.get("/scrape", function(req, res) {
       }
     });
   });
+
+  app.post("/saver/:id", (req, res) => {
+    var newsID = req.params.id;
+    console.log(newsID);
+    News.find.OneAndUpdate(
+      )
+  })
 
   // Send a "Scrape Complete" message to the browser
   res.send("Scrape Complete");
