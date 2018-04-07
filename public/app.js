@@ -2,13 +2,14 @@
 // Function that takes in 'news' (JSON) and creates a format to be rendered
 function displayResults(news) {
 	// First empty the info
-	$("tBody").empty();
+	$("#stuff").empty();
 
 	//Then for each entry of that json
 	news.forEach(function(scrapedNew) {   //Note: here news referes to the argument of displayResults(news)
 		// Appedn each of the news' properties to the page
-	$("tBody").append("<h3>" + scrapedNew.title + "</h3>" +  //Note: here scrapedNew refers to the argument in forEach(function(scrapedNew))
-										"<h4>" + scrapedNew.teaser + "</h4>"); 
+	$("#stuff").append("<h3>" + scrapedNew.title + "</h3>" +  //Note: here scrapedNew refers to the argument in forEach(function(scrapedNew))
+										"<h4>" + scrapedNew.teaser + "</h4>" + 
+										"<button>Read about it</button>"); 
 	});
 }
 
@@ -16,10 +17,15 @@ function displayResults(news) {
 // ==========
 
 // First thing: ask the back end for json with all news
-$.getJSON("/all", function(data) {
+// $.getJSON("/all", function(data) {
+//   // Call our function to generate the info body
+//   displayResults(data);
+// });
+$.getJSON("/", function(data) {
   // Call our function to generate the info body
   displayResults(data);
 });
+
 
 $("#get-all").on("click", function() {
    console.log("you click me");
