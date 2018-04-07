@@ -7,6 +7,7 @@ var cheerio = require("cheerio");
 
 // Initialize Express
 var app = express();
+app.use(express.static("public"));
 
 // Database configuration
 var databaseUrl = "nprdb";
@@ -16,7 +17,7 @@ var collections = ["scrapedNews"];
 var db = mongojs(databaseUrl, collections);
 db.on("error", function(error) {
   console.log("Database Error:", error);
-});yarn
+});
 
 // Main route (simple Hello World Message)
 app.get("/", function(req, res) {
@@ -88,6 +89,17 @@ app.get("/scrape", function(req, res) {
 
 
 // Listen on port 3000
-app.listen(3000, function() {
-  console.log("App running on port 3000!");
+app.listen(5050, function() {
+  console.log("App running on port 5050!");
 });
+
+/* ==================================================
+NOTE: the app was not working,
+I mena, it was not connecting with the files in the 'public' folder until
+I added the next line (is the number 10 in this files)
+     app.use(express.static("public"));
+
+
+This line is below the line where I declared
+     app = express() 
+======================================================== */
