@@ -35,3 +35,9 @@ $("#get-all").on("click", function() {
     displayResults(data);
   });
 });
+
+// $("button").on("click", function(){
+// 	$getJSON("/saver/:id", function(data) {
+// 		displayResults(data);
+// 	});
+// });
